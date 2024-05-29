@@ -1,2 +1,2 @@
 # Personal Assistant 
-# python project
+python project
