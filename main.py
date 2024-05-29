@@ -41,16 +41,20 @@ class Assistant:
         entry_boxvar= StringVar()
         self.entry_box = Entry(self.root,justify=CENTER,textvariable=entry_boxvar)
         self.entry_box.place(x=90,y=470,height=30,width=350)
-
+        
+        #History Button
         self.button_1 = Button(self.root,text="HISTORY",font=("aerial",10),bg="#009688",fg="White",padx=40,pady=16,borderwidth=2,border=2,relief=SOLID,command=self.show_history)
         self.button_1.place(x=30,y=520)
-
+        
+        # Clear Button
         self.button_2 = Button(self.root,text="CLEAR",font=("aerial",10),bg="#009688",fg="White",padx=40,pady=16,borderwidth=2,border=2,relief=SOLID,command=self.clear)
         self.button_2.place(x=190,y=520)
 
+        # Send Button
         self.button_3 = Button(self.root,text="SEND",font=("aerial",10),bg="#009688",fg="White",padx=40,pady=16,borderwidth=2,border=2,relief=SOLID,command=self.send)
         self.button_3.place(x=350,y=520)
-        #This function is called when the history button is clicked.
+# *************FUNCTIONS DECLARATION******************
+    # This function is called when history button is clicked
     def show_history(self):
         history_window = Toplevel(self.root)
         history_window.title("Search History")
@@ -64,7 +68,7 @@ class Assistant:
             history_text.config(state=NORMAL)
             history_text.insert(END, f.read())
             history_text.config(state=DISABLED)
-            # This function clears the search history file and updates the GUI.
+        # This function clears the search history file and updates the GUI.
         def clear_history():
             if os.path.exists("search_history.txt"):
                 os.remove("search_history.txt")
@@ -78,20 +82,12 @@ class Assistant:
             clear_button = Button(history_window, text="CLEAR HISTORY", command=clear_history,padx=10,pady=10,bg="#008080",borderwidth=2,border=2,relief=SOLID, font=("aerial",8),fg="white")
             clear_button.place(relx=0.7660, rely=0, anchor="nw")
 
-
-        # BUTTONS
-        # History button 
-        
-
-        # This function is called when clear button is clicked
+     # This function is called when clear button is clicked
     def clear(self):
         self.text.delete("1.0",END)
         self.entry_box.delete("0",END)
-
-        #Clear button
         
-
-        # This function is called when send botton is clicked
+     # This function is called when send botton is clicked
     def send(self,*args):
         questions = self.entry_box.get()
         answer= str(project_database.getfromprojectdb(questions))
@@ -106,10 +102,6 @@ class Assistant:
 
         # Event binding
         self.root.bind('<Return>',self.send)
-
-        # Send Button
-        
-
 
 if __name__ == "__main__":
     root = Tk()
