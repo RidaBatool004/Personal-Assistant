@@ -1,0 +1,51 @@
+import sqlite3 as s
+from datetime import datetime,date
+import webbrowser
+
+def gettime():
+    time = datetime.now()
+    current_time = time.strftime("%H:%M:%S")
+    return current_time
+def getdate():
+    current_date = date.today()
+    return (current_date)
+def makeconnection():
+    connect= s.connect("projdata.db")
+    return connect
+
+def getdata():
+    con=makeconnection()
+    cur=con.cursor()
+
+    cur.execute("SELECT * FROM QNA")
+    return cur.fetchall()
+
+def getfromprojectdb(ques):
+    rows = getdata()
+    ans=""
+    for row in rows:   #loop iterate in whole table rows
+        if row[0] != ques:
+            ans = "sorry i did not get it"
+        else:
+            ans=row[1]
+            break
+    if ans=="gettime":
+        ans= "Time is " + str(gettime())
+    if ans == "getdate":
+        ans = "Today's date is " + str(getdate())
+    if ans=="ok sir, opening youtube":
+        site = webbrowser.open("https://www.youtube.com")
+        ans = "Ok mam, Opening Youtube"
+    if ans=="opening google":
+        site = webbrowser.open("https://www.google.com")
+        ans = "Ok mam, Opening Google"
+    if ans=="opening wikipedia":
+        site = webbrowser.open("https://www.wikipedia.com")
+        ans = "Ok mam, Opening Wikipedia"
+    if ans == "quitting":
+        ans= "Ok mam"
+        exit()
+
+    return ans
+
+
